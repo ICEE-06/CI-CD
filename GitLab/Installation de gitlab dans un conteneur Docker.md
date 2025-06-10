@@ -32,3 +32,24 @@ services:
       - '$GITLAB_HOME/data:/var/opt/gitlab'
     shm_size: '256m'
 ```
+
+
+## Changer le mot de passe du user "root"
+
+- **Se connecter dans le bash du conteneur**:
+```
+docker exec -it {id_conteneur} bash
+```
+
+- **console rails**
+```
+gitlab-rails console
+```
+
+- **Création du nouveau mdp**:
+```
+user = User.find_by_username('root')
+user.password = 'NouveauMotDePasseFort'
+user.password_confirmation = 'NouveauMotDePasseFort'
+eser.save!
+```
