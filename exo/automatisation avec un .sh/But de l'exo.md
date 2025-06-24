@@ -1,0 +1,4 @@
+- **Templater un Dockerfile**
+- **Templater un docker-compose**: variabiliser le **nom de l'image** et le **port à exposé**
+- **créer un .env**: pour stocker les variables
+- **créer un .sh** pour automatiser le **build** de l'image, **démarrer les conteneurs** du docker-compose, et faire le **push** veers le **git lab** local. 

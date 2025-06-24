@@ -53,3 +53,47 @@ user.password = 'NouveauMotDePasseFort'
 user.password_confirmation = 'NouveauMotDePasseFort'
 eser.save!
 ```
+
+## Installation du Runner
+
+### Ajouter ces lignes dans le docker-compose
+
+```
+    networks:
+      - gitlab-network
+
+  
+  gitlab-runner:
+    image: gitlab/gitlab-runner:alpine3.18-v17.11.3
+    container_name: gitlab-runner
+    restart: always
+    volumes:
+      - '${GITLAB_RUNNER_HOME}/config:/etc/gitlab-runner'
+      - '/var/run/docker.sock:/var/run/docker.sock'
+    netwoerks:
+      - gitlab-network
+
+networks:
+  gitlab-network:
+    driver: bridge
+```
+
+### Variables d'environnements
+Avant de lancer les conteneurs, il faut créer les répertoires locaux avec les commandes:
+
+```
+export GITLAB_HOME=$HOME/gitlab
+export GITLAB_RUNNER_HOME=$HOME/gitlab-runner
+
+mkdir -p $GITLAB_HOME/config $GITLAB_HOME/logs $GITLAB_HOME/data
+mkdir -p $GITLAB_RUNNER_HOME/config
+
+```
+
+Maintenant on lance les conteneurs avec la commande `docker-compose up -d`
+
+### Enregistrer le Runner
+
+```
+docker exec -it gitlab-runner gitlab-runner register
+```
